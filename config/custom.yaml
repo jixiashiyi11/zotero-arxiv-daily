@@ -1,40 +1,26 @@
 zotero:
-  user_id: ${oc.env:ZOTERO_USER_ID}
-  api_key: ${oc.env:ZOTERO_API_KEY}
-  include_path: null
-  ignore_path: null
-
-source:
-  arxiv:
-    category: ["cs.AI","cs.CV","cs.LG","eess.IV"]
-    include_cross_list: false
+  user_id: ${oc.env:ZOTERO_ID}
+  api_key: ${oc.env:ZOTERO_KEY}
+  include_path: null # Or set a list of glob patterns, e.g. ["2026/survey/**","2026/reading-group/**"]
 
 email:
-  sender: ${oc.env:EMAIL_SENDER}
-  receiver: ${oc.env:EMAIL_RECEIVER}
+  sender: ${oc.env:SENDER}
+  receiver: ${oc.env:RECEIVER}
   smtp_server: smtp.qq.com
   smtp_port: 465
-  sender_password: ${oc.env:EMAIL_PASSWORD}
+  sender_password: ${oc.env:SENDER_PASSWORD}
 
 llm:
   api:
     key: ${oc.env:OPENAI_API_KEY}
-    base_url: "https://generativelanguage.googleapis.com/v1beta"
+    base_url: ${oc.env:OPENAI_API_BASE}
   generation_kwargs:
-    max_tokens: 16384
-    model: "gemini-2.0-flash"
-  language: English
+    model: gpt-4o-mini
 
-reranker:
-  local:
-    model: jinaai/jina-embeddings-v5-text-nano-retrieval
-    encode_kwargs:
-      task: retrieval
-      prompt_name: document
+source:
+  arxiv:
+    category: ["cs.AI","cs.CV","cs.LG","cs.CL"]
 
 executor:
-  debug: false
-  send_empty: false
-  max_paper_num: 100
-  source: ["arxiv"]
-  reranker: local
+  debug: ${oc.env:DEBUG,null}
+  source: ['arxiv']
