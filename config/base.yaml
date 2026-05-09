@@ -20,7 +20,14 @@ email:
   smtp_port: 465
   sender_password: ${oc.env:EMAIL_PASSWORD}
 
-llm: null
+# 这里必须填完整！不能写 null！这是报错根源！
+llm:
+  api:
+    key: ${oc.env:OPENAI_API_KEY}
+    base_url: "https://generativelanguage.googleapis.com/v1beta"
+  generation_kwargs:
+    model: gemini-2.0-flash
+  language: English
 
 reranker:
   local:
