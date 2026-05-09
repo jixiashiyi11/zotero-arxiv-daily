@@ -1,50 +1,40 @@
-env:
-  CUSTOM_CONFIG: |
-    zotero:
-      user_id: ${oc.env:ZOTERO_USER_ID}
-      api_key: ${oc.env:ZOTERO_API_KEY}
-      include_path: null
-      ignore_path: null
+zotero:
+  user_id: ${oc.env:ZOTERO_USER_ID}
+  api_key: ${oc.env:ZOTERO_API_KEY}
+  include_path: null
+  ignore_path: null
 
-    source:
-      arxiv:
-        category: ["cs.AI","cs.CV","cs.LG","eess.IV"]
-        include_cross_list: false
-      biorxiv:
-        category: null
-      medrxiv:
-        category: null
+source:
+  arxiv:
+    category: ["cs.AI","cs.CV","cs.LG","eess.IV"]
+    include_cross_list: false
 
-    email:
-      sender: ${oc.env:EMAIL_SENDER}
-      receiver: ${oc.env:EMAIL_RECEIVER}
-      smtp_server: smtp.qq.com
-      smtp_port: 465
-      sender_password: ${oc.env:EMAIL_PASSWORD}
+email:
+  sender: ${oc.env:EMAIL_SENDER}
+  receiver: ${oc.env:EMAIL_RECEIVER}
+  smtp_server: smtp.qq.com
+  smtp_port: 465
+  sender_password: ${oc.env:EMAIL_PASSWORD}
 
-    # --- 核心修改部分：替换原有的 llm: null ---
-    llm:
-      api:
-        key: ${oc.env:GEMINI_API_KEY}
-        base_url: "https://generativelanguage.googleapis.com/v1beta/openai/"
-        model: "gemini-1.5-pro"
-    # -------------------------------------------
+llm:
+  api:
+    key: ${oc.env:OPENAI_API_KEY}
+    base_url: "https://generativelanguage.googleapis.com/v1beta"
+  generation_kwargs:
+    max_tokens: 16384
+    model: "gemini-2.0-flash"
+  language: English
 
-    reranker:
-      local:
-        model: jinaai/jina-embeddings-v5-text-nano-retrieval
-        encode_kwargs:
-          task: retrieval
-          prompt_name: document
-      api:
-        key: null
-        base_url: null
-        model: null
-        batch_size: null
+reranker:
+  local:
+    model: jinaai/jina-embeddings-v5-text-nano-retrieval
+    encode_kwargs:
+      task: retrieval
+      prompt_name: document
 
-    executor:
-      debug: false
-      send_empty: false
-      max_paper_num: 100
-      source: ["arxiv"]
-      reranker: local
+executor:
+  debug: false
+  send_empty: false
+  max_paper_num: 100
+  source: ["arxiv"]
+  reranker: local
