@@ -1,14 +1,14 @@
 zotero:
-  user_id: ${oc.env:ZOTERO_ID}
-  api_key: ${oc.env:ZOTERO_KEY}
-  include_path: null # Or set a list of glob patterns, e.g. ["2026/survey/**","2026/reading-group/**"]
+  user_id: ${oc.env:ZOTERO_USER_ID}
+  api_key: ${oc.env:ZOTERO_API_KEY}
+  include_path: null
 
 email:
-  sender: ${oc.env:SENDER}
-  receiver: ${oc.env:RECEIVER}
+  sender: ${oc.env:EMAIL_SENDER}
+  receiver: ${oc.env:EMAIL_RECEIVER}
   smtp_server: smtp.qq.com
   smtp_port: 465
-  sender_password: ${oc.env:SENDER_PASSWORD}
+  sender_password: ${oc.env:EMAIL_PASSWORD}
 
 llm:
   api:
@@ -19,7 +19,14 @@ llm:
 
 source:
   arxiv:
-    category: ["cs.AI","cs.CV","cs.LG","cs.CL"]
+    category: ["cs.AI","cs.CV","cs.LG","eess.IV"]
+    keywords:
+      - "Mamba"
+      - "Medical Anomaly Detection"
+      - "Medical Image Anomaly Detection"
+      - "Mamba for medical"
+      - "Unsupervised Anomaly Detection"
+      - "Medical AI"
 
 executor:
   debug: ${oc.env:DEBUG,null}
