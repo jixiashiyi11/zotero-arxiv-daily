@@ -10,7 +10,6 @@ email:
   smtp_port: 465
   sender_password: ${oc.env:EMAIL_PASSWORD}
 
-# 完全关闭 LLM，避免报错
 llm: null
 
 source:
@@ -25,5 +24,6 @@ source:
       - "Medical AI"
 
 executor:
-  debug: ${oc.env:DEBUG,null}
-  source: ['arxiv']
+  debug: null
+  source:
+    - arxiv
