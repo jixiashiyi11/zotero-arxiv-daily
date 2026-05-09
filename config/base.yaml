@@ -2,16 +2,6 @@ zotero:
   user_id: ${oc.env:ZOTERO_USER_ID}
   api_key: ${oc.env:ZOTERO_API_KEY}
   include_path: null
-  ignore_path: null
-
-source:
-  arxiv:
-    category: ["cs.AI","cs.CV","cs.LG","eess.IV"]
-    include_cross_list: false
-  biorxiv:
-    category: null
-  medrxiv:
-    category: null
 
 email:
   sender: ${oc.env:EMAIL_SENDER}
@@ -20,30 +10,17 @@ email:
   smtp_port: 465
   sender_password: ${oc.env:EMAIL_PASSWORD}
 
-# 这里必须填完整！不能写 null！这是报错根源！
 llm:
   api:
-    key: ${oc.env:OPENAI_API_KEY}
+    key: "placeholder_key_do_not_delete"
     base_url: "https://generativelanguage.googleapis.com/v1beta"
   generation_kwargs:
-    model: gemini-2.0-flash
+    model: "gemini-2.0-flash"
   language: English
 
-reranker:
-  local:
-    model: jinaai/jina-embeddings-v5-text-nano-retrieval
-    encode_kwargs:
-      task: retrieval
-      prompt_name: document
-  api:
-    key: null
-    base_url: null
-    model: null
-    batch_size: null
+source:
+  arxiv:
+    category: ["cs.AI","cs.CV","cs.LG","eess.IV"]
 
 executor:
-  debug: false
-  send_empty: false
-  max_paper_num: 100
   source: ["arxiv"]
-  reranker: local
