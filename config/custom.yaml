@@ -10,12 +10,8 @@ email:
   smtp_port: 465
   sender_password: ${oc.env:EMAIL_PASSWORD}
 
-llm:
-  api:
-    key: ${oc.env:OPENAI_API_KEY}
-    base_url: "https://generativelanguage.googleapis.com/v1beta"
-  generation_kwargs:
-    model: gemini-2.0-flash
+# 完全关闭 LLM，避免报错
+llm: null
 
 source:
   arxiv:
